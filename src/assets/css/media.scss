@@ -1,0 +1,38 @@
+//全局屏幕适配
+@media (min-width:1500px) {
+  
+}
+@media (min-width:1200px) and (max-width:1500px) { 
+ 
+}
+@media (min-width:800px) and (max-width:1200px) {
+  
+}
+//适配手机端
+@media (max-width:800px) {
+  .header_nav,.home_main{
+    padding:0 10px;
+    box-sizing: border-box;
+  }
+  .section,.mine,.video,.member_right,.member_charge,.member_pay{
+    padding:150px 10px;
+  }
+  .home_banner_news{
+    margin:0 0px;
+  }
+  .login{
+    padding:0 10px;
+    box-sizing:border-box;
+  }
+  .el-pagination{
+    width:100vw;
+    padding:0 10px;
+    box-sizing: border-box;
+  }
+  .member_pay_top{
+    padding:0!important;
+  }
+  .page_name{
+    margin-top:0!important;
+  }
+}
