@@ -7,9 +7,9 @@
           <div class="login_left">
               <div class="title flex flexAlignCenter">
                 <img src="../assets/images/logo.png" alt="" class="bg_logo">
-                <div>
+                <div class="flex flexAlignEnd">
                     <span class="font_bold login_name">VIPON</span>
-                    <span>Seller center</span>
+                    <span class="font14">Seller center</span>
                 </div>
               </div>
               <div class="login_form flex flexColumn flexAlignCenter">
@@ -26,7 +26,7 @@
                   <div class="sign_btn">Sign in</div>
                   <div class="text_center btn_rister">Rigistered</div>
                 </div>
-                <div class="mt5 mention">Don't remember the password?<span>Recover it</span></div>
+                <div class="mt5 mention font14">Don't remember the password?<span>Recover it</span></div>
               </div>
           </div>
           <div class="login_right swiper_box">
@@ -36,7 +36,7 @@
                       <img src="" alt="" class="login_ava mt5">
                       <div class="font_bold swiper_side_name">Hot investment</div>
                       <div class="swiper_subtitle">Amazon sellers share deals and coupons for a huge selection of products, most 50% off or more.</div>
-                      <div class="join_btn">Join now</div> 
+                      <div class="join_btn font14">Join now</div> 
                   </div>
               </div>
               <div class="swiper-pagination"></div><!--分页器。如果放置在swiper-container外面，需要自定义样式。-->

@@ -1,0 +1,77 @@
+<template>
+  <div>
+      <div v-if="hasData" class="orderlist">
+          <div class="text_left font_bold pp2 font18 ">Order list</div>
+          <div class="order_head flex mt5 font_bold font16">
+              <div class="order_group flex justifyContentBetween">
+                  <div>Service</div>
+                  <div>Price</div>
+                  <div>Quantity</div>
+                  <div>Total price</div>
+              </div>
+              <div class="order_date">Date</div>
+          </div>
+          <div class="order_list pw2 mt2">
+              <div class="order_item flex flexAlignCenter font14" v-for="(item,index) in 6" :key="index">
+                <div class="order_group flex justifyContentBetween">
+                    <div class="flex flexAlignCenter">
+                        <img src="../../assets/images/Y.png" alt="" class="vip_icon1" v-if="index==0">
+                        <img src="../../assets/images/m.png" alt="" class="vip_icon2" v-if="index==1">
+                        <img src="../../assets/images/banner.png" alt="" class="vip_icon3" v-if="index==2">
+                        <img src="../../assets/images/banner1.png" alt="" class="vip_icon4" v-if="index==3">
+                        <img src="../../assets/images/tui.png" alt="" class="vip_icon5" v-if="index==4">
+                        <img src="../../assets/images/web.png" alt="" class="vip_icon6" v-if="index==5">
+                        <span class="ml2">VIP3 annual fee</span>
+                    </div>
+                    <div class="flex_ali">99 USD/YEAR</div>
+                    <div class="flex_ali">1</div>
+                    <div class="flex_ali">99 USD</div>
+                </div>
+                <div class="order_date">
+                    <span>2020.05.11 12:03</span>
+                    <span class="color_blue text_underline ml2">more</span>
+                </div>
+              </div>
+          </div>
+          <div class="block mt5">
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage3"
+              :page-size="5"
+              layout="prev, pager, next, jumper"
+              :total="12">
+            </el-pagination>
+          </div>
+      </div>
+      <div v-else class="font16 nodata font_bold">You have not order yet.</div>
+  </div>
+</template>
+<script>
+export default{
+  data(){
+    return{
+      currentPage3: 1,
+      hasData:true
+    }
+  },
+  methods: {
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+      }
+    },
+}
+</script>
+<style>
+ @import url("../../assets/css/index.scss");
+ .orderlist{
+    margin:0.3rem 0.2rem;
+    background: #ffffff;
+    padding-bottom:0.8rem;
+    box-sizing: border-box;
+  }
+
+</style>

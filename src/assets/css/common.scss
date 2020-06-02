@@ -466,22 +466,34 @@ a {
   border-bottom: 1px solid #ffffff;
 }
 .p2{
-  padding:20px 0;
+  padding:0.2rem 0;
+}
+.pw2{
+  padding:0 0.2rem;
+}
+.pp2{
+  padding:0.2rem;
 }
 .p1{
-  padding:10px 0;
+  padding:0.1rem 0;
 }
 .mt1{
-  margin-top:10px
+  margin-top:0.1rem
 }
 .mt2{
-  margin-top:20px
+  margin-top:0.2rem
+}
+.mt8{
+  margin-top:0.8rem;
+}
+.m2{
+  margin:0 0.2rem;
 }
 .mt5{
-  margin-top:50px;
+  margin-top:0.5rem;
 }
 .mt3{
-  margin-top:30px;
+  margin-top:0.3rem;
 }
 .boxSize{
   box-sizing: border-box;
@@ -496,10 +508,13 @@ a {
   text-align:center
 }
 .font14{
-  font-size:14px;
+  font-size:0.14rem;
+}
+.font16{
+  font-size:0.16rem
 }
 .font18{
-  font-size:18px;
+  font-size:0.18rem;
 }
 .line5{
   line-height: 1.5
@@ -508,10 +523,13 @@ a {
   border:none!important;
 }
 .ml5{
-  margin-left:5px;
+  margin-left:0.05rem;
+}
+.ml2{
+  margin-left: 0.2rem;
 }
 .font_20{
-  font-size:20px;
+  font-size:0.2rem;
 }
 a {
   color: #ffffff;
@@ -526,6 +544,9 @@ a:hover
 }
 .text_color{
   color:#ff952e;
+}
+.color_red{
+  color:#FB5B63;
 }
 //文字超出两行显示省略号
 .text_flow{
@@ -546,3 +567,24 @@ a:hover
 .font_bold{
   font-weight:bold;
 }
+.color_9{
+  color:#999999;
+}
+.color_blue{
+  color:blue;
+}
+.text_underline{
+  text-decoration: underline;
+}
+.flex_ali{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex_alic{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+

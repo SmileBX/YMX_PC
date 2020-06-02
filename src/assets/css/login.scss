@@ -22,12 +22,12 @@
 }
 .login_main{
   position: relative;
-  top:50px;
+  top:0.5rem;
   z-index:100;
   width:85%;
   margin:auto;
   background: rgba(247,247,247,0.1);
-  box-shadow: -1px -1px 5px 1px rgba(0,0,0,0.1);
+  box-shadow: -0.01rem -0.01rem 0.05rem 0.01rem rgba(0,0,0,0.1);
 }
 .login_left{
   width:55%;
@@ -35,51 +35,51 @@
 .login_left .title{
   color:#383CF7;
   margin:0 auto;
-  margin-top:80px;
-  width:350px;
+  margin-top:0.8rem;
+  width:3.5rem;
 }
 .login_name{
-  font-size:28px;
-  letter-spacing:3px;
+  font-size:0.28rem;
+  letter-spacing:0.03rem;
 }
 .bg_logo{
-  width:50px;
-  height:50px;
+  width:0.5rem;
+  height:0.5rem;
   vertical-align: middle;
   background:rgba(248,248,248,1);
-  border-radius:20px;
+  border-radius:0.2rem;
 }
 .login_form{
-  margin-top:150px;
+  margin-top:1.5rem;
 }
 .login_form .tip{
-  font-size:30px;
+  font-size:0.3rem;
 }
 .login_form .form_item{
-  border:1px solid #EBEBEB;
-  width:350px;
+  border:0.01rem solid #EBEBEB;
+  width:3.5rem;
   text-align: left;
   box-sizing: border-box;
-  padding-left:10px;
+  padding-left:0.1rem;
 } 
 .form_item img{
-  width:14px;height:16px;
+  width:0.14rem;height:0.16rem;
 }
 input{
-  height:50px;
-  line-height: 50px;
-  padding-left:50px;
+  height:0.5rem;
+  line-height: 0.5rem;
+  padding-left:0.5rem;
   box-sizing: border-box;
 }
 .login_btn{
-  width:350px;
-  font-size:16px;
+  width:3.5rem;
+  font-size:0.16rem;
 }
 .sign_btn{
   background: #383CF7;
   color:#ffffff;
-  padding:16px 0;
-  border-radius:8px;
+  padding:0.16rem 0;
+  border-radius:0.08rem;
   width:50%;
 }
 .btn_rister{
@@ -94,28 +94,28 @@ input{
 }
 .login_right{
   width:45%;
-  margin-top:150px;
+  margin-top:1.5rem;
 }
 .swiper_side .login_ava{
-  width:189px;
-  height:186px;
+  width:1.89rem;
+  height:1.86rem;
   border-radius:50%;
-  border:1px solid #ff0000;
+  border:0.01rem solid #ff0000;
 } 
 .swiper_side_name{
-  margin-top:56px;font-size:18px;
+  margin-top:0.56rem;font-size:0.18rem;
 }
 .swiper_subtitle{
   color:#999999;
-  font-size:14px;
-  padding:0 65px;
-  margin:48px 0;
+  font-size:0.14rem;
+  padding:0 0.65rem;
+  margin:0.48rem 0;
   line-height:1.5;
 }
 .join_btn{
   background: #383CF7;
   color:#ffffff;
-  width:166px;height:44px;
-  line-height:44px;
-  border-radius:5px;
+  width:1.66rem;height:0.44rem;
+  line-height:0.44rem;
+  border-radius:0.05rem;
 }
