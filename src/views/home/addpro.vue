@@ -59,7 +59,7 @@
         <div class="flex flexAlignCenter flexColumn mt5">
             <div class="flex flexAlignCenter">
               <el-checkbox v-model="checked"></el-checkbox>
-              <div class="font14 ml5 color_9 text_ttp">I know that the <span class="color_red font18 text_underline">Featured Deals US</span> section needs to be charged, and I understand the charging standards and precautions *</div>
+              <div class="font14 ml2 color_9 text_ttp">I know that the <span class="color_red font18 text_underline">Featured Deals US</span> section needs to be charged, and I understand the charging standards and precautions *</div>
             </div>
             <div class="font16 conadd_btn mt3">Confirm add</div>
         </div>

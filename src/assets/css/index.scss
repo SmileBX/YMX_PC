@@ -13,13 +13,11 @@
   vertical-align: middle;
 }
 .index_head{
-  width:100vw;
-  height:0.89rem;
+  width:100%;
+  background:#3F51B5;
 }
 .nav_left{
-  background:#303F9F;
   color:#ffffff;
-  
 }
 .nav_name{
   font-size:0.28rem;
@@ -28,7 +26,7 @@
 }
 .nav_right{
   text-align: right;
-  background:#3F51B5;
+  
   padding-right:0.2rem;
   color:#ffffff;
   box-sizing:border-box;
@@ -41,15 +39,12 @@
 .index_ver{
   margin:0 0.2rem 0 0.2rem;
 }
-.index_tb{
-  width:0.14rem;height:0.16rem;
-}
 .elem_title{
   color:#2F3F9F;
   padding:0.46rem 0.15rem;
   font-family:Arial;
-  font-weight:normal;
-  font-size:0.28rem;
+  font-weight:bolder;
+  font-size:0.36rem;
 }
 .concat{
   padding:0.2rem;
@@ -86,19 +81,12 @@
   right:0.2rem;
   bottom:0.3rem;
 }
-.com_item{
-  width:23%;
-  background: #ffffff;
-}
-.item_head{
-  padding:0.35rem 0.2rem;
-  font-size:0.16rem;
-}
 .item_logo{
   width:0.68rem;height:0.58rem;
 }
 .com_bot{
-  padding:0.1rem 0.2rem;
+  height:0.5rem;
+  line-height: 0.5rem;
   color:#ffffff;
   font-size:0.16rem;
 }
@@ -169,6 +157,12 @@
 .w4{
   width:40%
 }
+.w45{
+  width:45%
+}
+.w55{
+  width:55%;
+}
 .w6{
   width:60%;
 }
@@ -183,7 +177,7 @@
 }
 .list_item{
   background: #EBF7FF;
-  padding:0.2rem;
+  padding:0.1rem 0.2rem;
   margin:0.1rem 0;
 }
 .item_pic{
@@ -354,6 +348,108 @@
 .detail_bott{
   padding-right:1rem;
   margin-top:1rem;
-  width:1.489rem;
   justify-content: flex-end;
+}
+//支付流程相关
+.submit_order{}
+.submit_order{
+  margin:0.85rem 1.35rem;
+}
+.submit_list{
+  padding:0 0.4rem;
+}
+.submit_list .submit_pay{
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  width:95%;
+}
+.submit_pay>div{
+  width:25%;
+}
+.sub_item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0.1rem 0;
+}
+.submit_color{
+  color:#E64A19
+}
+.sub_men_left{
+  margin-left:0.5rem;
+}
+.step1_btn{
+  background: #2D8CF0;
+  color:#ffffff;
+  display: inline-block;
+  width:1.4rem;
+  height:0.36rem;
+  line-height: 0.36rem;
+  text-align: center;
+  border-radius: 0.03rem;
+}
+.pay_active{
+  border-bottom:0.03rem solid #303F9F;
+}
+.payment_item{
+  display: inline-block;
+  margin-right:0.6rem;
+  padding:0.15rem 0;
+}
+.pay_logo{
+  width:1.55rem;
+  height:0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -0.01rem 0.01rem 0.05rem 0.01rem rgba(0,0,0,0.1);
+}
+.pay_logo img{
+  width:1.2rem;height:0.3rem;
+}
+.card_pay{
+  margin-right:0.5rem;
+}
+.color_lignblue{
+  color:#2D8CF0;
+}
+.success_icon{
+  width:0.26rem;height:0.26rem;
+}
+.success_toast{
+  margin:0.45rem 0;
+}
+
+
+.nav_left{
+  width:20%;
+}
+.nav_right{
+  width:80%;
+}
+.index_head{
+  height:0.98rem;
+}
+.index_tb{
+  width:0.14rem;height:0.16rem;
+}
+.index_right{
+  width:80%;
+}
+.com_item{
+  // width:23%;
+  background: #ffffff;
+}
+.item_head{
+  // padding:0.35rem 0.2rem;
+  width:3.50rem;
+  height:1.4rem;
+  font-size:0.16rem;
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+}
+.all_classify{
+  width:0.45rem;height:0.16rem;
 }

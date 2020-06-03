@@ -33,7 +33,7 @@
             <div class="swiper-container">
               <div class="swiper-wrapper">
                   <div class="swiper-slide swiper_side flex flexColumn flexAlignCenter" v-for="(item,index) in 5" :key="index">
-                      <img src="" alt="" class="login_ava mt5">
+                      <img src="" alt="" class="login_ava">
                       <div class="font_bold swiper_side_name">Hot investment</div>
                       <div class="swiper_subtitle">Amazon sellers share deals and coupons for a huge selection of products, most 50% off or more.</div>
                       <div class="join_btn font14">Join now</div> 
@@ -73,19 +73,19 @@
 <style lang="scss">
 @import url("../assets/css/login.scss");
 .swiper-container{
-    width: 396px;
-    height:620px;
-    margin: 20px auto;
+    width: 3.96rem;
+    height:6.20rem;
+    margin: 0.2rem auto;
     --swiper-theme-color: #ff6600;
     --swiper-pagination-color: #ffffff;/* 两种都可以 */
   }
   .swiper-slide{
-    width:396px;
-    height:556px;
+    width:3.96rem;
+    height:5.56rem;
     background: #ffffff;
   }
 
   .swiper-pagination{
-    width:100%;height:30px;
+    width:100%;height:0.3rem;
   }
 </style>

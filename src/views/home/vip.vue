@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--共用组件头部-->
-    <indexList></indexList>
+    <indexList :type="type"></indexList>
     <!--列表-->
     <div class="index_content">
       <div class="text_left font_bold pp2 font18 ">VIP level</div>
@@ -33,12 +33,22 @@ import indexList from '../../components/indexList.vue'
 export default{
   data(){
     return{
-      
+      type:0,//1-home 2-vip 3-adver
     }
   },
   components:{
     indexList,
-  }
+  },
+  watch: {
+			$route() {
+        this.type = this.$route.query.type;
+        console.log(this.type,",,,,,,,,,,,,,")
+			}
+	},
+  created () {
+    this.type = this.$route.query.type;
+  },
+
 }
 
 </script>

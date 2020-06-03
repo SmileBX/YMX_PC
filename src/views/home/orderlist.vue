@@ -29,7 +29,7 @@
                 </div>
                 <div class="order_date">
                     <span>2020.05.11 12:03</span>
-                    <span class="color_blue text_underline ml2">more</span>
+                    <span class="color_blue text_underline ml2 cli_pointer" @click="toDetail">more</span>
                 </div>
               </div>
           </div>
@@ -61,8 +61,14 @@ export default{
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+      },
+      //订单详情
+      toDetail(){
+        this.$router.push('/index/detail')
       }
     },
+    
+    
 }
 </script>
 <style>
@@ -73,5 +79,5 @@ export default{
     padding-bottom:0.8rem;
     box-sizing: border-box;
   }
-
+  
 </style>

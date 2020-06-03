@@ -5,6 +5,7 @@ import 'swiper/css/swiper.css';
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
+import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/js/jquery-3.4.1.min.js';
 import './assets/js/set_rem.js';
@@ -13,7 +14,7 @@ import './assets/js/set_rem.js';
 
 
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, { locale })
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
