@@ -48,9 +48,18 @@
               <div class="flex flexColumn mt5">
                 <div class="font16 font_bold text_left">Product Image*</div>
                 <div class="mt2">
-                    <div class="img_pic border_pic">
-                      <img src="../../assets/images/add.png" alt="" class="add_pic">
-                    </div>
+                  <el-upload
+                      action="https://jsonplaceholder.typicode.com/posts/"
+                      list-type="picture-card"
+                      :multiple="true"
+                      :on-preview="handlePictureCardPreview"
+                      :before-upload="beforeAvatarUpload"
+                      :on-remove="handleRemove">
+                      <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible" style="border:1px solid red">
+                      <img width="100%" :src="dialogImageUrl" alt=""><!---预览图片-->
+                    </el-dialog>
                     <!---其他图片-->
                 </div>
             </div>
@@ -67,9 +76,23 @@
 </template>
 <script>
   export default{
-    data(){
-      return{
+    data() {
+      return {
         checked:true,
+        dialogImageUrl: '',
+        dialogVisible: false
+      };
+    },
+    methods: {
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+      },
+      beforeAvatarUpload (file){
+
       }
     }
   }
@@ -80,5 +103,17 @@
     margin:0.3rem 0.2rem;
     background: #ffffff;
     padding-bottom:0.8rem;
+  }
+  .el-upload--picture-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0;
+  }
+  .el-upload-list--picture-card{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin:0;
   }
 </style>
