@@ -1,9 +1,10 @@
 import axios from "axios";
 import { Message } from "element-ui";
 import store from "../store/index";
-import BASE_URL from '../components/common/Global';
 import router from "../router/index";
 
+
+const BASE_URL = '193.364.35645'
 // 创建axios实例
 const service = axios.create({
     baseURL: BASE_URL.BOOK_URL, // api的base_url

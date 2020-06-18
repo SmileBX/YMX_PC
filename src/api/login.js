@@ -1,7 +1,7 @@
 /**
  * Created by lk on 17/6/4.
  */
-import axios from "../utils/axios";
+import axios from "./axios";
 // 获取信息
 export function userInfo(id, token) {
     return axios({
