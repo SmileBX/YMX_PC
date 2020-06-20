@@ -10,10 +10,10 @@
           </div>
         </div>
         <div class="nav_right flex flexAlignCenter justifyContentEnd boxSize">
-            <img src="" alt="" class="index_ava">
+            <img src="../assets/images/ava.png" alt="" class="index_ava">
             <div style="padding-right:0.2rem;" class="flex flexAlignCenter">
-              <span class="index_ver font16">Vision_1173690</span>
-              <img src="../assets/images/out.png" alt="" class="index_tb">
+              <span class="index_ver font16">{{userInfo.username}}</span>
+              <img src="../assets/images/out.png" alt="" class="index_tb cli_pointer" @click="loginOut">
             </div>
         </div>
       </div>
@@ -46,10 +46,9 @@
                 </el-menu-item>
                 <el-menu-item index="5">
                   <i class="el-icon-s-opportunity"></i>
-                  <el-badge :value="200" :max="99" class="item">
-                    Notification
+                  <el-badge :value="newsCount" :max="99" class="item" v-if="newsCount>0">
                   </el-badge>
-                  <!-- <span slot="title">Notification</span> -->
+                  <span slot="title">Notification</span>
                 </el-menu-item>
               </el-menu>
             </el-col>
@@ -75,20 +74,57 @@
     </div>
 </template>
 <script>
+  import {get,post} from '@/api/axios.js'
+  import {getToken} from '@/utils/auth'
   export default {
     data(){
       return{
         activeIndex:"1",
+        query:{
+          user_token:getToken()
+        },
+        userInfo:{},
+        newsCount:0,
       }
     },
     created(){
+      
       if(this.$route.query.type){
         this.activeIndex = this.$route.query.type
       }else{
         this.activeIndex="1"
       }
+      this.getUserInfo()
+      this.getNewsList()
     },
     methods: {
+      //获取消息
+      getNewsList(){
+        post('user/user_notice',this.query).then(res=>{
+            this.$store.commit('changeNewsCount',res.data.total)
+            this.newsCount = this.$store.state.newsCount
+            console.log(this.newsCount,"this.newsCount")
+          if(res.code == 0){
+            this.$store.commit('changeNewsCount',res.data.total)
+            this.newsCount = this.$store.state.newsCount
+            
+          }
+        })
+      },
+      //获取用户信息
+      getUserInfo(){
+        post('/user/getuserinfo?lang=en-us',this.query).then(res=>{
+          if(res.code == 0){
+            this.userInfo = res.data
+          }
+        })
+      },
+      //退出登录
+      loginOut(){
+        this.$store.dispatch('loginOut').then(
+          this.$router.push('/login')
+        )
+      },
       choseIndex(key, keyPath){
         this.activeIndex = key
         let urlPath = ''

@@ -22,12 +22,11 @@
           </div>
           <div class="block mt5">
             <el-pagination
-              @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              :current-page.sync="currentPage3"
-              :page-size="5"
+              :current-page.sync="query.page"
+              :page-size="query.list_rows"
               layout="prev, pager, next, jumper"
-              :total="12">
+              :total="total">
             </el-pagination>
           </div>
       </div>
@@ -35,16 +34,37 @@
   </div>
 </template>
 <script>
+import {get,post} from '@/api/axios.js'
+import {getToken} from '@/utils/auth.js'
 export default{
   data(){
     return{
-      currentPage3: 1,
-      hasData:true
+      hasData:true,
+      total:0,
+      newslist:[],
+      query:{
+        user_token:getToken(),
+        list_rows:5,
+        page:1
+      }
     }
   },
+  created () {
+    this.getNewsList()
+  },
   methods: {
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+      getNewsList(){
+        post('user/user_notice',this.query).then(res=>{
+          if(res.code == 0){
+            this.total = res.data.total
+            if(res.data.total>0){
+              this.hasData = true
+            }else{
+              this.hasData = false
+            }
+            this.newslist = res.data
+          }
+        })
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);

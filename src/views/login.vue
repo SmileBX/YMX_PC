@@ -16,15 +16,15 @@
                  <div class="tip">Sign in</div>
                  <div class="form_item flex flexAlignCenter mt5">
                    <img src="../assets/images/account.png" alt="">
-                   <input type="text" placeholder="Account" class="flex1">
+                   <input type="text" placeholder="Account" class="flex1" v-model="query.email">
                  </div>
                  <div class="form_item flex flexAlignCenter mt3">
                   <img src="../assets/images/pwd.png" alt="">
-                  <input type="text" placeholder="Password" class="flex1">
+                  <input type="text" placeholder="Password" class="flex1" v-model="query.password">
                 </div>
                 <div class="flex mt3 flexAlignCenter justifyContentBetween login_btn">
-                  <div class="sign_btn">Sign in</div>
-                  <div class="text_center btn_rister">Rigistered</div>
+                  <div class="sign_btn cli_pointer"@click="login">Sign in</div>
+                  <div class="text_center btn_rister cli_pointer" @click="toRegister">Rigistered</div>
                 </div>
                 <div class="mt5 mention font14">Don't remember the password?<span>Recover it</span></div>
               </div>
@@ -51,7 +51,10 @@
   export default{
     data(){
       return{
-
+        query:{
+          email:'2249494851@qq.com',
+          password:'123456'
+        }
       }
     },
     mounted(){
@@ -65,7 +68,43 @@
       })       
     },
     methods: {
-      
+      toRegister(){
+        this.$router.push('/register')
+      },
+      login(){
+        console.log(this.$store,"8889999999")
+        if(this.val()){
+          this.$store.dispatch('loginName',this.query).then(res=>{
+            console.log(res,"res")
+            if(res.code == 0){
+              this.$message({
+                  message: '登录成功!',
+                  type: 'success',
+                  center:true,
+                  duration:1000
+              })
+              setTimeout(()=>{
+                this.$router.push('/index')
+              },1000)
+            }
+          })
+        }
+      },
+      val(){
+        if(this.query.email == ''){
+          this.$message('邮箱不能为空!');
+          return;
+        }
+        if(!/^\w+@[a-z0-9]+\.[a-z]{2,4}$/.test(this.query.email)){
+          this.$message('邮箱格式不正确!');
+          return;
+        }
+        if(this.query.password == ''){
+          this.$message('请设置登录密码!');
+          return;
+        }
+        return true;
+      }
     }
   }
 

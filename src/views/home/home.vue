@@ -123,18 +123,36 @@
               </div>
           </div>
       </div>
+      <div class="block mt5">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage3"
+          :page-size="5"
+          layout="prev, pager, next, jumper"
+          :total="12">
+        </el-pagination>
+      </div>
     </div>
 </template>
 <script>
   import indexList from '../../components/indexList.vue'
+  import {get,post} from '@/api/axios.js'
+  import {getToken} from '@/utils/auth.js'
   export default{
     data(){
       return{
-        type:0,//1-home 3-adver
+        type:0,//1-home 2-vip 3-adver   1-3都是home页面
         checked:true,
+        currentPage3: 1,
         value: true,
         radio: 3,
         showMenu:false,//广告的时候是否显示分类
+        query:{
+          user_token:getToken(),
+          list_rows:5,//每页记录数量
+          page:1,//访问页码
+        }
       }
     },
     components:{
@@ -147,18 +165,37 @@
       changeRadio(e){
         console.log(e,"value")
       },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+      },
       addPro(){
         this.$router.push('/index/add')
+      },
+      getList(){
+        let objUrl = ''
+        if(this.type==1){ //1-home  3-adver
+          objUrl = '/shop/good_list?lang=en-us'
+        }else{
+          objUrl = '/shop/good_list?lang=en-us'
+        }
+        post(objUrl,this.query).then(res=>{
+
+        })
       }
     },
     watch: {
 			$route() {
         this.type = this.$route.query.type;
+        this.getList()
         // console.log(this.type,",,,,,,,,,,,,,")
 			}
 		},
     created () {
       this.type = this.$route.query.type;
+      this.getList()
     }
   }
 

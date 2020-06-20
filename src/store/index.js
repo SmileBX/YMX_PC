@@ -23,6 +23,7 @@ const store =new Vuex.Store({
         avatar: "", // 头像
         token: getToken(), // 登录token
         authRules: [], // 权限列表
+        newsCount:0,//消息数量
         // routers: constantRouterMap // 路由列表
     },
     getters : {
@@ -31,27 +32,28 @@ const store =new Vuex.Store({
         avatar: state => state.avatar,
         token: state => state.token,
         authRules: state => state.authRules,
-        routers: state => state.routers
+        newsCount:state=>state.newsCount
+        // routers: state => state.routers
     },
     // actions
     actions:{
         // 用户名登录
         loginName({ commit }, userInfo) {
-            const accountNumber = userInfo.accountNumber ? userInfo.accountNumber.trim() : "";
+            const email = userInfo.email ? userInfo.email.trim() : "";
             const password = userInfo.password ? userInfo.password : "";
             return new Promise((resolve, reject) => {
-                loginName(accountNumber, password)
+                loginName(email, password)
                     .then(response => {
                         if (response.code) {
                             Message({
-                                message: response.message,
+                                message: response.msg,
                                 type: "error",
                                 duration: 5 * 1000
                             });
                         } else {
                             let data = response.data;
-                            commit(types.RECEIVE_ADMIN_ID, data.id);
-                            commit(types.RECEIVE_ADMIN_TOKEN, data.token);
+                            commit(types.RECEIVE_ADMIN_ID, data.member_id);
+                            commit(types.RECEIVE_ADMIN_TOKEN, data.user_token);
                             commit(types.RECEIVE_ADMIN_AUTH_RULES, []);
                         }
                         resolve(response);
@@ -72,7 +74,7 @@ const store =new Vuex.Store({
                         commit(types.RECEIVE_ADMIN_NAME, data.username);
                         commit(types.RECEIVE_ADMIN_AVATAR, data.avatar);
                         commit(types.RECEIVE_ADMIN_AUTH_RULES, data.authRules);
-                        resolve(data);
+                        // resolve(data);
                     })
                     .catch(error => {
                         reject(error);
@@ -146,6 +148,10 @@ const store =new Vuex.Store({
         [types.RECEIVE_ROUTERS](state, routers) {
             const tempRm = constantRouterMap.concat(routers);
             state.routers = JSON.parse(JSON.stringify(tempRm));
+        },
+        //修改消息数量
+        changeNewsCount(state,params){
+            state.newsCount = params
         }
     }
 })

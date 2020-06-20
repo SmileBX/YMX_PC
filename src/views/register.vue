@@ -16,22 +16,22 @@
                <div class="tip">Registered</div>
                <div class="form_item flex flexAlignCenter mt5">
                  <img src="../assets/images/account.png" alt="">
-                 <input type="text" placeholder="Account" class="flex1">
+                 <input type="text" placeholder="Email" v-model="query.email" class="flex1">
                </div>
                <div class="form_item flex flexAlignCenter mt3">
                 <img src="../assets/images/pwd.png" alt="">
-                <input type="text" placeholder="Password" class="flex1">
+                <input type="text" placeholder="Password" class="flex1" v-model="query.password">
               </div>
               <div class="form_item flex flexAlignCenter mt3">
                 <img src="../assets/images/pwd.png" alt="">
-                <input type="text" placeholder="Repeat Password" class="flex1">
+                <input type="text" placeholder="Repeat Password" class="flex1" v-model="query.confirm_password">
               </div>
               <div class="flex mt3 flexAlignCenter justifyContentBetween login_btn">
-                <div class="text_center btn_rister">Sign in</div>
-                <div class="sign_btn">Rigistered</div>
+                <div class="text_center btn_rister cli_pointer" @click="toLogin">Sign in</div>
+                <div class="sign_btn cli_pointer" @click="register">Rigistered</div>
               </div>
               <div class="mt5 mention font14 flex flexAlignCenter">
-                <el-checkbox v-model="checked" ></el-checkbox>
+                <el-checkbox v-model="checked" @change="change"></el-checkbox>
                 <div class="ml2">
                   I have read and accept the<span>User Agreement</span>
                 </div>
@@ -57,10 +57,18 @@
 </template>
 <script>
 import Swiper from 'swiper';
+import {
+  get,post
+} from '@/api/axios.js'
 export default{
   data(){
     return{
       checked:true,
+      query:{
+        email:'',
+        password:'',
+        confirm_password:''
+      }
     }
   },
   mounted(){
@@ -74,7 +82,54 @@ export default{
     })       
   },
   methods: {
-    
+    change(e){
+        this.checked = e
+    },
+    toLogin(){
+      this.$router.push('/login')
+    },
+    //注册
+    register(){
+      if(this.val() && this.checked){
+        post('/shop/register?lang=en-us',this.query).then(res=>{
+          if(res.code == 0){
+            this.$message({
+                message: '注册成功!',
+                type: 'success',
+                center:true,
+                duration:1000
+            });
+            //跳转到登录页
+            setTimeout(()=>{
+                this.$router.push({path:'/login',
+                // query:{
+                //       accountNumber:this.accountNumber
+                //   }
+              })
+            },1000)
+          }
+        })
+      }
+    },
+    val(){
+      if(this.query.email == ''){
+        this.$message('邮箱不能为空!');
+        return;
+      }
+      if(!/^\w+@[a-z0-9]+\.[a-z]{2,4}$/.test(this.query.email)){
+        this.$message('邮箱格式不正确!');
+        return;
+      }
+      if(this.query.password == ''){
+        this.$message('请设置登录密码!');
+        return;
+      }
+      if(this.query.confirm_password == ''){
+        this.$message('请再次输入登录密码!');
+        return;
+      }
+      return true;
+    }
   }
 }
 

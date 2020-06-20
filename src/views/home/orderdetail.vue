@@ -5,26 +5,27 @@
           <div class="order_info flex mt8 font_bold font16">
               <div class="w7 flex justifyContentBetween order_info_item">
                 <div class="text_left">
-                  <div>Order number: <span class="font14 color_9">202005110101102</span></div>
-                  <div class="mt5">Price: <span class="font14 color_9">99 USD/YEAR</span></div>
+                  <div>Order number: <span class="font14 color_9">{{orderInfo.order_no}}</span></div>
+                  <div class="mt5">Price: <span class="font14 color_9">{{orderInfo.price}} USD/YEAR</span></div>
                 </div>
                 <div class="text_left">
-                  <div>Service: <span class="font14 color_9">VIP3 annual fee</span></div>
-                  <div class="mt5">Quantity: <span class="font14 color_9">1</span></div>
+                  <div>Service: <span class="font14 color_9">{{orderInfo.description}}</span></div>
+                  <div class="mt5">Quantity: <span class="font14 color_9">{{orderInfo.quantity}}</span></div>
                 </div>
                 <div class="text_left">
-                  <div>Product: <span class="font14 color_9">VIP3</span></div>
-                  <div class="mt5">Quantity: <span class="font14 color_9">Paypal</span></div>
+                  <div>Product: <span class="font14 color_9">{{orderInfo.product}}</span></div>
+                  <div class="mt5">
+                    Payment method: <span class="font14 color_9">{{orderInfo.pay_type}}</span></div>
                 </div>
               </div>
               <div class="w3 flex justifyContentBetween">
-                  <div>Date: <span class="font14 color_9">2020.05.11 12:03</span></div>
-                  <div>Status: <span class="font14 color_9">Paid</span></div>
+                  <div>Date: <span class="font14 color_9">{{orderInfo.create_time}}</span></div>
+                  <div>Status: <span class="font14 color_9">{{orderInfo.status==0?'未付款':(orderInfo.status==1?'已付款':'已取消')}}</span></div>
               </div>
           </div>
           <div class="flex_alic">
               <div class="detail_bott flex flexColumn flexAlignCenter">
-                <div class="font16 font_bold">Total price: <span class="color_purple">99 USD</span></div>
+                <div class="font16 font_bold">Total price: <span class="color_purple">{{orderInfo.price}}USD</span></div>
                 <div class="font16 service_btn">Service</div>
                 <div class="text_underline color_purple font14">request a refund</div>
               </div>
@@ -33,16 +34,33 @@
   </div>
 </template>
 <script>
+  import {get,post} from '@/api/axios.js'
+  import {getToken} from '@/utils/auth.js'
 export default{
   data(){
     return{
       currentPage3: 1,
-      hasData:true
+      hasData:true,
+      orderInfo:{},
+      query:{
+        user_token:getToken(),
+        id:'',
+      }
     }
   },
+  created () {
+    this.query.id = this.$route.query.id
+    this.getDetail()
+  },
   methods: {
-      
-    },
+    getDetail(){
+      post('shop/order_detail',this.query).then(res=>{
+        if(res.code == 0){
+          this.orderInfo = res.data
+        }
+      })
+    }
+  },
 }
 </script>
 <style>

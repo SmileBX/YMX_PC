@@ -11,17 +11,17 @@ export function userInfo(id, token) {
     });
 }
 
-export function loginName(accountNumber, password) {
+export function loginName(email, password) {
     return axios({
-        url: "/user/login",
+        url: "/shop/login?lang=en-us",
         method: "post",
-        data: { accountNumber, password }
+        data: { email, password }
     });
 }
 
 export function logout(uid, token) {
     return axios({
-        url: "/admin/auth/login/out",
+        url: "/common/loginout?lang=en-us",
         method: "post",
         data: { uid, token }
     });

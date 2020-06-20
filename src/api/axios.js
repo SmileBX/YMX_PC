@@ -4,10 +4,10 @@ import store from "../store/index";
 import router from "../router/index";
 
 
-const BASE_URL = '193.364.35645'
+const BASE_URL = 'http://192.168.1.124/shop/public/api.php'
 // 创建axios实例
 const service = axios.create({
-    baseURL: BASE_URL.BOOK_URL, // api的base_url
+    baseURL: BASE_URL, // api的base_url
     timeout: 5000 // 请求超时时间
 });
 

@@ -15,7 +15,7 @@
           </div>
       </div>
       <div class=" font16 vip_list">
-        <div class="vip_item flex flexAlignCenter" v-for="(item,value) in 6" :key="value">
+        <div class="vip_item flex flexAlignCenter" v-for="(item,value) in vipList" :key="value">
           <div class="vip_left">Monthly fee</div>
           <div class="vip_right flex flexAlignCenter justifyContentBetween">
             <div><span class="color_red">9</span> USD/Month</div>
@@ -30,10 +30,16 @@
 </template>
 <script>
 import indexList from '../../components/indexList.vue'
+import {get,post} from '@/api/axios.js'
+import {getToken} from '@/utils/auth.js'
 export default{
   data(){
     return{
       type:0,//1-home 2-vip 3-adver
+      query:{
+        user_token:getToken()
+      },
+      vipList:[]
     }
   },
   components:{
@@ -47,7 +53,17 @@ export default{
 	},
   created () {
     this.type = this.$route.query.type;
+    this.getVipList()
   },
+  methods: {
+    getVipList(){
+      post('/shop/vip?lang=en-us',this.query).then(res=>{
+        if(res.code == 0){
+          this.vipList = res.data.list
+        }
+      })
+    }
+  }
 
 }
 

@@ -12,35 +12,34 @@
               <div class="order_date">Date</div>
           </div>
           <div class="order_list pw2 mt2">
-              <div class="order_item flex flexAlignCenter font14" v-for="(item,index) in 6" :key="index">
+              <div class="order_item flex flexAlignCenter font14" v-for="(item,index) in orderList" :key="index">
                 <div class="order_group flex justifyContentBetween">
                     <div class="flex flexAlignCenter">
-                        <img src="../../assets/images/Y.png" alt="" class="vip_icon1" v-if="index==0">
-                        <img src="../../assets/images/m.png" alt="" class="vip_icon2" v-if="index==1">
+                        <img src="../../assets/images/Y.png" alt="" class="vip_icon1" >
+                        <!-- <img src="../../assets/images/m.png" alt="" class="vip_icon2" v-if="index==1">
                         <img src="../../assets/images/banner.png" alt="" class="vip_icon3" v-if="index==2">
                         <img src="../../assets/images/banner1.png" alt="" class="vip_icon4" v-if="index==3">
                         <img src="../../assets/images/tui.png" alt="" class="vip_icon5" v-if="index==4">
-                        <img src="../../assets/images/web.png" alt="" class="vip_icon6" v-if="index==5">
-                        <span class="ml2">VIP3 annual fee</span>
+                        <img src="../../assets/images/web.png" alt="" class="vip_icon6" v-if="index==5"> -->
+                        <span class="ml2">{{item.description}}</span>
                     </div>
-                    <div class="flex_ali">99 USD/YEAR</div>
+                    <div class="flex_ali">{{item.price}} USD/YEAR</div>
                     <div class="flex_ali">1</div>
-                    <div class="flex_ali">99 USD</div>
+                    <div class="flex_ali">{{item.price}} USD</div>
                 </div>
                 <div class="order_date">
-                    <span>2020.05.11 12:03</span>
-                    <span class="color_blue text_underline ml2 cli_pointer" @click="toDetail">more</span>
+                    <span>{{item.create_time}}</span>
+                    <span class="color_blue text_underline ml2 cli_pointer" @click="toDetail(item)">more</span>
                 </div>
               </div>
           </div>
           <div class="block mt5">
             <el-pagination
-              @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              :current-page.sync="currentPage3"
-              :page-size="5"
+              :current-page.sync="query.page"
+              :page-size="query.list_rows"
               layout="prev, pager, next, jumper"
-              :total="12">
+              :total="total">
             </el-pagination>
           </div>
       </div>
@@ -48,23 +47,44 @@
   </div>
 </template>
 <script>
+  import {get,post} from '@/api/axios.js'
+  import {getToken} from '@/utils/auth.js'
 export default{
   data(){
     return{
-      currentPage3: 1,
-      hasData:true
+      hasData:true,
+      orderList:[],
+      total:0,
+      query:{
+        user_token:getToken(),
+        list_rows:5,
+        page:1
+      }
     }
   },
+  created () {
+      this.getOrderList()
+  },
   methods: {
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
+      async getOrderList (){
+        const res = await post('shop/order_list',this.query)
+        if(res.code == 0){
+          this.total = res.data.total
+          this.orderList = res.data.data
+        }
+      }, 
+
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
       //订单详情
-      toDetail(){
-        this.$router.push('/index/detail')
+      toDetail(item){
+        this.$router.push({
+          path:'/index/detail',
+          query:{
+            id:item.id
+          }
+        })
       }
     },
     
