@@ -33,7 +33,7 @@
             <div class="swiper-container">
               <div class="swiper-wrapper">
                   <div class="swiper-slide swiper_side flex flexColumn flexAlignCenter" v-for="(item,index) in 5" :key="index">
-                      <img src="" alt="" class="login_ava">
+                      <img src="../assets/images/tx.png" alt="" class="login_ava">
                       <div class="font_bold swiper_side_name">Hot investment</div>
                       <div class="swiper_subtitle">Amazon sellers share deals and coupons for a huge selection of products, most 50% off or more.</div>
                       <div class="join_btn font14">Join now</div> 

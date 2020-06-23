@@ -35,7 +35,7 @@
                   adv   Add +
                   adv分类  Promote >>等
               -->
-              <div class="menu_btn font14" v-if="type==1" @click="addPro">New product +</div>
+              <div class="menu_btn font14 cli_pointer" v-if="type==1" @click="addPro">New product +</div>
               <div class="menu_btn font14" v-if="type==3 && !showMenu" @click="showMenu=true"> Add +</div>
               <div v-if="showMenu && type==3" class="font14 flex flexAlignCenter">
                   <el-radio-group v-model="radio" class="font14 flex flexAlignCenter" @change="changeRadio">
@@ -78,45 +78,46 @@
                         </div>
                     </div>
                     <div class="flex flexAlignCenter justifyContentCenter">On / Off shelf</div>
-                    <div class="flex flexAlignCenter justifyContentCenter">Promote</div> 
+                    <!-- <div class="flex flexAlignCenter justifyContentCenter">Promote</div>  -->
                     <div class="flex flexAlignCenter justifyContentCenter">Setting</div>
                   </div>
                   
               </div>
               <div class="list_content font14">
-                  <div class="list_item flex flexAlignCenter justifyContentBetween" v-for="(item,key) in 4" :key="key">
+                  <div class="list_item flex flexAlignCenter justifyContentBetween" v-for="(item,key) in proList" :key="key">
                     <div class="pro_item_left flex flexAlignCenter">
-                      <el-checkbox v-model="checked"></el-checkbox>
+                      <!-- <el-checkbox v-model="checked"></el-checkbox> -->
                       <div class="item_pic">
-                        <img src="" alt="" >
+                        <img :src="item.image" alt="" >
                       </div>
-                      <div class="text_flow flex1">Steam Iron for Clothes, Dcenta 2 IN 1 Horizontal and Vertical Ironing Steamer for clothes, 1300W Powerful 25s Fast Heat-up Portable Handheld Garment...</div> 
+                      <div class="text_flow flex1">{{item.name}}</div> 
                     </div>
                     <div class="flex justifyContentBetween  box_f6">
-                      <div class="flex flexAlignCenter justifyContentCenter color_9">2020/05/15</div>
-                      <div class="flex flexAlignCenter justifyContentCenter color_9">2020/06/14</div>
+                      <div class="flex flexAlignCenter justifyContentCenter color_9">{{item.strat_time}}</div>
+                      <div class="flex flexAlignCenter justifyContentCenter color_9">{{item.end_time}}</div>
                       <div>
-                        <div>$52</div>
+                        <div>${{item.price}}</div>
                         <div class="color_9">USD</div>
                       </div>
                       <div>
                         <el-switch
-                          v-model="value"
+                          v-model="item.isCheck"
                           active-color="#13ce66"
+                          @change="changSwitch(item)"
                           inactive-color="#ff4949">
                         </el-switch>
                       </div>
-                      <div>
+                      <!-- <div>
                         <el-switch
                           v-model="value"
                           active-color="#13ce66"
                           inactive-color="#ff4949">
                         </el-switch>
-                      </div>
+                      </div> -->
                       <div class="set_menu">
-                          <img src="../../assets/images/set.png" alt="">
+                          <img src="../../assets/images/set.png" alt="" @click="addPro(item)">
                           <img src="../../assets/images/url.png" alt="">
-                          <img src="../../assets/images/del.png" alt="">
+                          <img src="../../assets/images/del.png" alt="" @click="del(item)">
                       </div>
                     </div>
                   </div>
@@ -125,12 +126,11 @@
       </div>
       <div class="block mt5">
         <el-pagination
-          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page.sync="currentPage3"
-          :page-size="5"
+          :current-page.sync="query.page"
+          :page-size="query.list_rows"
           layout="prev, pager, next, jumper"
-          :total="12">
+          :total="total">
         </el-pagination>
       </div>
     </div>
@@ -143,11 +143,13 @@
     data(){
       return{
         type:0,//1-home 2-vip 3-adver   1-3都是home页面
-        checked:true,
         currentPage3: 1,
         value: true,
         radio: 3,
+        checked:true,
         showMenu:false,//广告的时候是否显示分类
+        proList:[],
+        total:0,
         query:{
           user_token:getToken(),
           list_rows:5,//每页记录数量
@@ -165,14 +167,63 @@
       changeRadio(e){
         console.log(e,"value")
       },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
-      addPro(){
-        this.$router.push('/index/add')
+      //删除商品
+      del(item){
+        let query = {
+          user_token:getToken(),
+          id:item.id,
+          status:'-1',
+        }
+        post('shop/update_goods_status',query).then(res=>{
+          if(res.code == 0){
+            this.$message({
+                 message: '删除成功!',
+                type: 'success',
+                center:true,
+                duration:1000
+            })
+            setTimeout(()=>{
+              this.getList()
+            },1000)
+          }
+        })
+      },
+      changSwitch(item){
+        //是否上架
+        // console.log(item,"777777777777777")
+        let query = {
+          user_token:getToken(),
+          id:item.id,
+          status:item.status==1?'0':'1',
+        }
+        // console.log(query,"kkkkk")
+        post('shop/update_goods_status',query).then(res=>{
+          if(res.code == 0){
+            this.$message({
+                 message: '操作成功!',
+                type: 'success',
+                center:true,
+                duration:1000
+            })
+          }
+        })
+      },
+      addPro(item){
+        if(item){
+          this.$router.push({
+            path:'/index/add',
+            query:{
+              id:item.id
+            }
+          })
+        }else{
+          this.$router.push('/index/add')
+        }
+        
+        // this.$router.push('/index/add?id='+item.id)
       },
       getList(){
         let objUrl = ''
@@ -182,7 +233,18 @@
           objUrl = '/shop/good_list?lang=en-us'
         }
         post(objUrl,this.query).then(res=>{
-
+          if(res.code == 0){
+            this.total = res.data.total
+            this.proList = res.data.data
+            res.data.data.map(item=>{
+              if(item.status == 1){
+                this.$set(item,"isCheck",true)
+              }else{
+                this.$set(item,"isCheck",false)
+              }
+            })
+            // console.log(this.proList,"this.proList")
+          }
         })
       }
     },

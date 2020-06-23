@@ -15,12 +15,12 @@
                 <div class="text_left">
                   <div>Product: <span class="font14 color_9">{{orderInfo.product}}</span></div>
                   <div class="mt5">
-                    Payment method: <span class="font14 color_9">{{orderInfo.pay_type}}</span></div>
+                    Payment method: <span class="font14 color_9">{{orderInfo.pay_type==1?'paypel':'qita'}}</span></div>
                 </div>
               </div>
               <div class="w3 flex justifyContentBetween">
                   <div>Date: <span class="font14 color_9">{{orderInfo.create_time}}</span></div>
-                  <div>Status: <span class="font14 color_9">{{orderInfo.status==0?'未付款':(orderInfo.status==1?'已付款':'已取消')}}</span></div>
+                  <div>Status: <span class="font14 color_9">{{orderInfo.pay_status==0?'未付款':(orderInfo.pay_status==1?'已付款':'已取消')}}</span></div>
               </div>
           </div>
           <div class="flex_alic">

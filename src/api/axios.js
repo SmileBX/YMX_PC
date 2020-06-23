@@ -8,7 +8,7 @@ const BASE_URL = 'http://192.168.1.124/shop/public/api.php'
 // 创建axios实例
 const service = axios.create({
     baseURL: BASE_URL, // api的base_url
-    timeout: 5000 // 请求超时时间
+    // timeout: 5000 // 请求超时时间
 });
 
 export function get(url, query) {

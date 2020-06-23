@@ -16,20 +16,20 @@
                         <div>Total price</div> 
                     </div>
                     <div class="sub_list mt2 ">
-                        <div class="sub_item" v-for="(item,index) in 3" :key="index">
+                        <div class="sub_item">
                                 <div class="submit_pay color_9 font14">
                                   <div class="flex flexAlignCenter justifyContentCenter">
-                                    <img src="../../assets/images/Y.png" alt="" class="vip_icon1" v-if="index==0">
-                                    <img src="../../assets/images/m.png" alt="" class="vip_icon2" v-if="index==1">
+                                    <img src="../../assets/images/Y.png" alt="" class="vip_icon1">
+                                    <!-- <img src="../../assets/images/m.png" alt="" class="vip_icon2" v-if="index==1">
                                     <img src="../../assets/images/banner.png" alt="" class="vip_icon3" v-if="index==2">
                                     <img src="../../assets/images/banner1.png" alt="" class="vip_icon4" v-if="index==3">
                                     <img src="../../assets/images/tui.png" alt="" class="vip_icon5" v-if="index==4">
-                                    <img src="../../assets/images/web.png" alt="" class="vip_icon6" v-if="index==5">
-                                    <span class="ml2">VIP3 annual fee</span>
+                                    <img src="../../assets/images/web.png" alt="" class="vip_icon6" v-if="index==5"> -->
+                                    <span class="ml2">{{vipdata.description}}</span>
                                 </div>
-                                <div>99 USD/YEAR</div>
-                                <div>1</div>
-                                <div>99 USD</div> 
+                                <div>{{vipdata.price}} USD/YEAR</div>
+                                <div>{{vipdata.quantity}}</div>
+                                <div>{{vipdata.price}} USD</div> 
                             </div>
                             <el-checkbox v-model="checked"></el-checkbox>
                         </div>
@@ -40,26 +40,61 @@
                     * If submitting an order means you know and accept <span class="text_underline submit_color">Member Terms of Service</span>
                   </div>
                   <div>
-                    Total price: <span class="submit_color font_bold">$99</span>
+                    Total price: <span class="submit_color font_bold">${{vipdata.price}}</span>
                   </div>
                 </div>
                 <div class="text_right mt2 pw4">
-                  <div class="step1_btn font14">Submit Order</div>
+                  <div class="step1_btn font14" @click="submit">Submit Order</div>
                 </div>
           </div>
       </div>
   </div>
 </template>
 <script>
+import {get,post} from '@/api/axios.js'
+import {getToken} from '@/utils/auth.js'
 export default{
   data(){
     return{
         checked:true,
+        vipdata:{},
+        order_id:'',
+        query:{
+          id:'',
+          user_token:getToken()
+        }
     }
   },
+  created () {
+    this.query.id = this.$route.query.id
+    this.getOrderList()
+  },
   methods: {
-      
+    async getOrderList(){
+      const res = await post('user/up_vip',this.query)
+      if(res.code == 0){
+        this.vipdata = res.data
+        this.order_id = res.data.id
+      }
     },
+    //提交订单
+    submit(){
+      if(!this.checked){
+        this.$message('请选择订单!')
+        return;
+      }
+      this.$router.push('/index/pay?id='+this.query.id)
+      // let query = {
+      //   id:this.order_id,
+      //   user_token:getToken()
+      // }
+      // post('paypal/user_pay',query).then(res=>{
+      //   if(res.code == 0){
+      //       window.open(res.data,"_blank"); 
+      //   }
+      // })
+    }
+  },
 }
 </script>
 <style>

@@ -16,12 +16,12 @@
                     </div>
                   </div>
                   <div>
-                    Total price: <span class="submit_color font_bold">$99</span>
+                    Total price: <span class="submit_color font_bold">${{vipdata.price}}</span>
                   </div>
                 </div>
                 <div class="flex pw4 mt2 sub_men_left font14 font_bold">
-                    <span>Order Number: 202005230125</span>
-                    <span class="ml6">Service: VIP3 annual fee 1year</span>
+                    <span>Order Number: {{vipdata.order_no}}</span>
+                    <span class="ml6">Service: {{vipdata.description}}</span>
                 </div>
                 <!---支付方式-->
                 <div>
@@ -53,23 +53,57 @@
                   <div class="font14 sub_men_left">
                     * If submitting an order means you know and accept <span class="text_underline color_lignblue">Member Terms of Service</span>
                   </div>
-                  <div class="step1_btn font14">Submit Order</div>
+                  <div class="step1_btn font14" @click="submit">Submit Order</div>
                 </div>
           </div>
       </div>
   </div>
 </template>
 <script>
+import {get,post} from '@/api/axios.js'
+import {getToken} from '@/utils/auth.js'
 export default{
   data(){
     return{
+        vipdata:{},
+        order_id:'',
+        query:{
+          id:'',
+          user_token:getToken()
+        },
         checked:true,
         radio: 3
     }
   },
+  created () {
+    this.query.id = this.$route.query.id
+    this.getOrderList()
+  },
   methods: {
-      
+    async getOrderList(){
+      const res = await post('user/up_vip',this.query)
+      if(res.code == 0){
+        this.vipdata = res.data
+        this.order_id = res.data.id
+      }
     },
+    //提交订单
+    submit(){
+      if(!this.checked){
+        this.$message('请选择订单!')
+        return;
+      }
+      let query = {
+        id:this.order_id,
+        user_token:getToken()
+      }
+      post('paypal/user_pay',query).then(res=>{
+        if(res.code == 0){
+            window.open(res.data,"_blank"); 
+        }
+      })
+    }
+  },
 }
 </script>
 <style>

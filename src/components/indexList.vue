@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--共用组件头部-->
-    <div class="flex justifyContentBetween index_list_component flexWrap">
+    <div class="flex index_list_component flexWrap">
         <div v-for="(item,index) in this.cardInfo" :key="index" class="com_item">
             <div class="flex item_head justifyContentBetween">
                 <div class="text_left">
@@ -42,14 +42,14 @@
     watch: {
       $route() {
         this.typeNew = this.$route.query.type;
-        console.log(this.typeNew,",,,,,,,,,,,,,")
+        // console.log(this.typeNew,",,,,,,,,,,,,,")
         this.getData()
 			}
     },
     methods:{
       getData(){  ////1-home 2-vip 3-adver
         let objUrl = ''
-        console.log(this.typeNew,"2222222222222")
+        // console.log(this.typeNew,"2222222222222")
         if(this.typeNew == 1){
           objUrl = '/shop/goods_statistics?lang=en-us'
         }else if(this.typeNew == 2){
@@ -80,7 +80,7 @@
             
             
             
-            console.log(this.cardInfo,"card")
+            // console.log(this.cardInfo,"card")
           }
         })
       }

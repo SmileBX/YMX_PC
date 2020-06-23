@@ -6,22 +6,22 @@
     <div class="index_content">
       <div class="text_left font_bold pp2 font18 ">VIP level</div>
       <div class="vip_head flex flexAlignCenter font16 m2">
-          <div class="vip_left">Privilege</div>
+          <div class="vip_left">title</div>
           <div class="vip_right flex flexAlignCenter justifyContentBetween">
-            <div>VIP3</div>
-            <div>VIP2</div>
-            <div>VIP1</div>
-            <div>FREE</div>
+            <div>Optional discount</div>
+            <div>times</div>
+            <div>fee</div>
+            <div>is_get</div>
           </div>
       </div>
       <div class=" font16 vip_list">
         <div class="vip_item flex flexAlignCenter" v-for="(item,value) in vipList" :key="value">
-          <div class="vip_left">Monthly fee</div>
+          <div class="vip_left">{{item.title}}</div>
           <div class="vip_right flex flexAlignCenter justifyContentBetween">
-            <div><span class="color_red">9</span> USD/Month</div>
-            <div><span class="color_red">8</span> USD/Month</div>
-            <div><span class="color_red">3</span> USD/Month</div>
-            <div class="color_red">FREE</div>
+            <div><span class="color_red">{{item.discount}}</span> off</div>
+            <div><span class="color_red">{{item.times}}</span> </div>
+            <div><span class="color_red">{{item.fee}}</span> USD/Month</div>
+            <div class="color_red cli_pointer" @click="makeOrder(item)">{{item.is_get==0?'Get':'Use'}}</div>
           </div>
         </div>
       </div>
@@ -62,6 +62,17 @@ export default{
           this.vipList = res.data.list
         }
       })
+    },
+    //创建订单
+    makeOrder(item){
+      if(item.is_get==0){
+        this.$router.push({
+          path:'/index/submit',
+          query:{
+            id:item.id
+          }
+        })
+      }
     }
   }
 
