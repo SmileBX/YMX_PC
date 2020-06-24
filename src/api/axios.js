@@ -4,7 +4,7 @@ import store from "../store/index";
 import router from "../router/index";
 
 
-const BASE_URL = 'http://192.168.1.124/shop/public/api.php'
+const BASE_URL = 'https://www.amzshop-us.uk/api.php'
 // 创建axios实例
 const service = axios.create({
     baseURL: BASE_URL, // api的base_url

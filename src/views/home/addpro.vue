@@ -105,7 +105,7 @@
     data() {
       return {
         checked:true,
-        actionUrl:'http://192.168.1.124/shop/public/api.php/common/picture_upload',
+        actionUrl:'https://www.amzshop-us.uk/api.php/common/picture_upload',
         imageUrl: '',
         level:'chose level',
         cate:'chose cate',
