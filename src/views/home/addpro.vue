@@ -131,7 +131,7 @@
       this.getcateList()
       this.getlevelList()
       console.log(this.$route.query,"8888888888")
-      if(this.$route.query){
+      if(this.$route.query.id){
         this.proid = this.$route.query.id
         this.getDetail()
       }

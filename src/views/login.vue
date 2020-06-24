@@ -84,7 +84,7 @@
                   duration:1000
               })
               setTimeout(()=>{
-                this.$router.push('/index')
+                this.$router.push('/index/home?type=1')
               },1000)
             }
           })
