@@ -8,28 +8,26 @@
           <div class="flex flexAlignCenter justifyContentBetween pw2">
               <div class="flex">
                   <div class="flex flexAlignCenter border_com font16">
-                    <el-dropdown @command="handleCommand">
+                    <el-dropdown 
+                    placement="bottom-start"
+                    @command="handleCommand">
                         <span class="el-dropdown-link font14">
-                          All labels<i class="el-icon-arrow-down el-icon--right"></i>
+                         {{cate}}<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
-                        <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item command="a">黄金糕</el-dropdown-item>
-                          <el-dropdown-item command="b">狮子头</el-dropdown-item>
-                          <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
-                          <el-dropdown-item command="d" disabled>双皮奶</el-dropdown-item>
-                          <el-dropdown-item command="e" divided>蚵仔煎</el-dropdown-item>
+                        <el-dropdown-menu slot="dropdown" class="level_main">
+                          <el-dropdown-item :command="ell.id" v-for="(ell,key) in cateList" :key="key">{{ell.name}}</el-dropdown-item>
                         </el-dropdown-menu>
                       </el-dropdown>
                       <!-- <img src="../../assets/images/more.png" alt="" class="icon_more"> -->
                   </div>
                   <div class="flex flexAlignCenter border_com m15_cen">
-                      <input type="text" name="" id="" placeholder="Search">
-                      <img src="../../assets/images/search.png" alt="" class="icon_sear">
+                      <input type="text" name="" id="" placeholder="Search" v-model="query.search">
+                      <img src="../../assets/images/search.png" alt="" class="icon_sear" @click="getList">
                     </div>
-                  <div class="flex flexAlignCenter font14">
+                  <!-- <div class="flex flexAlignCenter font14">
                     <el-checkbox v-model="checked"></el-checkbox>
                     <div class="ml5">Only show ongoing listing</div>
-                  </div>
+                  </div> -->
               </div>
               <!---home  New product +
                   adv   Add +
@@ -127,7 +125,7 @@
       <div class="block mt5">
         <el-pagination
           @current-change="handleCurrentChange"
-          :current-page.sync="query.page"
+          :current-page="query.page"
           :page-size="query.list_rows"
           layout="prev, pager, next, jumper"
           :total="total">
@@ -149,11 +147,15 @@
         checked:true,
         showMenu:false,//广告的时候是否显示分类
         proList:[],
+        cateList:[],
         total:0,
+        cate:'All labels',
         query:{
           user_token:getToken(),
           list_rows:5,//每页记录数量
           page:1,//访问页码
+          cate_id:0,
+          search:'',
         }
       }
     },
@@ -161,14 +163,50 @@
       indexList,
     },
     methods: {
-      handleCommand(command) {
-        this.$message('click on item ' + command);
+      handleCommand(event){
+        console.log(event,"lllll")
+        this.query.cate_id = event
+        this.cateList.map(item=>{
+          if(item.id == event){
+            this.cate = item.name
+          }
+        })
+        this.getList()
       },
       changeRadio(e){
         console.log(e,"value")
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+        this.$router.push({
+					path: "/index/home",
+					query:{
+            page:val,//访问页码
+            list_rows:this.query.list_rows
+          }
+				});
+      },
+      innerGetContent() {
+				let pramas = this.$route.query;
+				if (pramas.list_rows) {
+					this.query.list_rows = parseInt(pramas.list_rows)
+				}
+				if (pramas.page) {
+					this.query.page = parseInt(pramas.page)
+				} else {
+					this.query.page = 1
+				}
+				this.getList()
+			},
+      async getcateList(){
+        try{
+          const res = await post('goods/goods_cate_list')
+          if(res.code == 0){
+              this.cateList = res.data
+          }
+        }catch(err){
+
+        }
       },
       //删除商品
       del(item){
@@ -238,6 +276,7 @@
         }
         post(objUrl,this.query).then(res=>{
           if(res.code == 0){
+            console.log(res.data.data,"998989898")
             this.total = res.data.total
             this.proList = res.data.data
             res.data.data.map(item=>{
@@ -257,13 +296,15 @@
     watch: {
 			$route() {
         this.type = this.$route.query.type;
-        this.getList()
+        // this.getList()
+        this.innerGetContent()
         // console.log(this.type,",,,,,,,,,,,,,")
 			}
 		},
     created () {
       this.type = this.$route.query.type;
-      this.getList()
+      this.innerGetContent()
+      this.getcateList()
     }
   }
 

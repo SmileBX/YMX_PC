@@ -43,10 +43,10 @@
                   <div class="font16 font_bold text_left">Amazon current price*</div>
                   <input type="text" class="inpur_box" v-model="query.currency_price">
               </div>
-              <div class="flex flexColumn mt3">
+              <!-- <div class="flex flexColumn mt3">
                   <div class="font16 font_bold text_left">Discount*</div>
                   <input type="text" class="inpur_box " v-model="query.discount">
-              </div>
+              </div> -->
               <div class="flex flexColumn mt3">
                 <div class="font16 font_bold text_left">Start date*</div>
                 <el-date-picker
@@ -116,7 +116,7 @@
           user_token:getToken(),
           currency_price:'',//当前价格
           name:'',
-          discount:'',
+          // discount:'',
           discount_coud:'', //折扣码
           cover_id:'',//图片Id
           amazon_url:'',

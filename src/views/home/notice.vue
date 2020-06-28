@@ -50,9 +50,39 @@ export default{
     }
   },
   created () {
-    this.getNewsList()
+    this.innerGetContent()
   },
+  watch: {
+			$route() {
+        this.type = this.$route.query.type;
+        // this.getList()
+        this.innerGetContent()
+        // console.log(this.type,",,,,,,,,,,,,,")
+			}
+	},
   methods: {
+    innerGetContent() {
+				let pramas = this.$route.query;
+				if (pramas.list_rows) {
+					this.query.list_rows = parseInt(pramas.list_rows)
+				}
+				if (pramas.page) {
+					this.query.page = parseInt(pramas.page)
+				} else {
+					this.query.page = 1
+				}
+				this.getNewsList()
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        this.$router.push({
+					path: "/index/notice",
+					query:{
+            page:val,//访问页码
+            list_rows:this.query.list_rows
+          }
+				});
+      },
       getNewsList(){
         post('user/user_notice',this.query).then(res=>{
           if(res.code == 0){
@@ -64,7 +94,7 @@ export default{
             }
             this.newslist = res.data
           }
-        }).carch((err)=>{})
+        }).catch((err)=>{})
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);

@@ -63,8 +63,16 @@ export default{
     }
   },
   created () {
-      this.getOrderList()
+    this.innerGetContent()
   },
+  watch: {
+			$route() {
+        this.type = this.$route.query.type;
+        // this.getList()
+        this.innerGetContent()
+        // console.log(this.type,",,,,,,,,,,,,,")
+			}
+		},
   methods: {
       async getOrderList (){
         try{
@@ -75,9 +83,27 @@ export default{
           }
         }catch(err){}
       }, 
-
+      innerGetContent() {
+				let pramas = this.$route.query;
+				if (pramas.list_rows) {
+					this.query.list_rows = parseInt(pramas.list_rows)
+				}
+				if (pramas.page) {
+					this.query.page = parseInt(pramas.page)
+				} else {
+					this.query.page = 1
+				}
+				this.getOrderList()
+			},
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+        this.$router.push({
+					path: "/index/order",
+					query:{
+            page:val,//访问页码
+            list_rows:this.query.list_rows
+          }
+				});
       },
       //订单详情
       toDetail(item){
