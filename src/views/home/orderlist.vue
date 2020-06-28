@@ -67,11 +67,13 @@ export default{
   },
   methods: {
       async getOrderList (){
-        const res = await post('shop/order_list',this.query)
-        if(res.code == 0){
-          this.total = res.data.total
-          this.orderList = res.data.data
-        }
+        try{
+          const res = await post('shop/order_list',this.query)
+          if(res.code == 0){
+            this.total = res.data.total
+            this.orderList = res.data.data
+          }
+        }catch(err){}
       }, 
 
       handleCurrentChange(val) {
@@ -92,7 +94,7 @@ export default{
 }
 </script>
 <style>
- @import url("../../assets/css/index.scss");
+ @import url("../../assets/css/index.css");
  .orderlist{
     margin:0.3rem 0.2rem;
     background: #ffffff;

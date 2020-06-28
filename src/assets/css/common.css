@@ -1,8 +1,4 @@
-$main-color: #FF9900; //默认基准颜色
-$biger_width:6.5%;
-$big_width:10%;
-$center_width:12%;
-$tiny_width:20%;
+
 body { 
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

@@ -4,24 +4,53 @@ import store from "../store/index";
 import router from "../router/index";
 
 
-const BASE_URL = 'https://www.amzshop-us.uk/api.php'
+const BASE_URL = 'https://www.amzshop-us.uk/api.php/'
 // 创建axios实例
 const service = axios.create({
     baseURL: BASE_URL, // api的base_url
     // timeout: 5000 // 请求超时时间
 });
 
-export function get(url, query) {
-    return service({
-        method: 'get', url: url, params: query
-    });
+// export function get(url, query) {
+//     return service({
+//         method: 'get', url: url, params: query
+//     });
+// }
+
+// export function post(url, body) {
+//     return service({
+//         method: 'post', url: url,headers:{'Content-Type':'application/json;charset=UTF-8'}, data: body
+//     });
+// }
+
+ // get请求
+ export  function get(url, data) {
+    return request(url, 'GET', data)
+}
+  // post请求
+export function post(url, data) {
+    return request(url, 'POST', data)
 }
 
-export function post(url, body) {
-    return service({
-        method: 'post', url: url,headers:{'Content-Type':'application/json;charset=UTF-8'}, data: body
-    });
-}
+function request(url, method, data) {
+    return new Promise((resolve, reject) => { 
+        const options = {
+            url,
+            method,
+            data
+          }
+        service(options)
+          .then(res => {
+            // console.log('返回数据66666', res)
+            resolve(res)
+          })
+          .catch(error => {
+            
+            console.error(error)
+            // reject()
+          })
+    })
+  }
 
 // request拦截器
 service.interceptors.request.use(

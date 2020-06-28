@@ -64,7 +64,7 @@ export default{
             }
             this.newslist = res.data
           }
-        })
+        }).carch((err)=>{})
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
@@ -73,7 +73,7 @@ export default{
 }
 </script>
 <style>
- @import url("../../assets/css/index.scss");
+ @import url("../../assets/css/index.css");
  .notice{
     margin:0.3rem 0.2rem;
     background: #ffffff;

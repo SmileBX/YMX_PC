@@ -61,7 +61,7 @@ export default{
         if(res.code == 0){
           this.vipList = res.data.list
         }
-      })
+      }).catch((err)=>{})
     },
     //创建订单
     makeOrder(item){
@@ -80,7 +80,7 @@ export default{
 
 </script>
 <style>
-  @import url("../../assets/css/index.scss");
+  @import url("../../assets/css/index.css");
 .vip_head{
   font-family:Arial;
   font-weight:bold;

@@ -34,7 +34,7 @@ export default{
 }
 </script>
 <style>
- @import url("../../assets/css/index.scss");
+ @import url("../../assets/css/index.css");
  .submit{
     margin:0.3rem 0.2rem;
     background: #ffffff;

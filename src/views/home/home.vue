@@ -189,6 +189,8 @@
               this.getList()
             },1000)
           }
+        }).catch((err)=>{
+          
         })
       },
       changSwitch(item){
@@ -209,6 +211,8 @@
                 duration:1000
             })
           }
+        }).catch(()=>{
+          
         })
       },
       addPro(item){
@@ -245,6 +249,8 @@
             })
             // console.log(this.proList,"this.proList")
           }
+        }).catch(()=>{
+
         })
       }
     },
@@ -263,7 +269,7 @@
 
 </script>
 <style>
-  @import url("../../assets/css/index.scss");
+  @import url("../../assets/css/index.css");
 /* .el-checkbox__inner{
   background: #2D8CF0;
 } */

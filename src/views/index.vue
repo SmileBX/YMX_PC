@@ -113,11 +113,11 @@
       },
       //获取用户信息
       getUserInfo(){
-        post('/user/getuserinfo?lang=en-us',this.query).then(res=>{
+        post('user/getuserinfo?lang=en-us',this.query).then(res=>{
           if(res.code == 0){
             this.userInfo = res.data
           }
-        })
+        }).catch((err)=>{})
       },
       //退出登录
       loginOut(){
@@ -151,7 +151,7 @@
 
 </script>
 <style>
-  @import url("../assets/css/index.scss");
+  @import url("../assets/css/index.css");
   @import url("../assets/css/media.css");
   .el-col{
     width:100%;

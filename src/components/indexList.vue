@@ -98,6 +98,6 @@
 
 </script>
 <style>
-  @import url("../assets/css/index.scss");
+  @import url("../assets/css/index.css");
 
 </style>

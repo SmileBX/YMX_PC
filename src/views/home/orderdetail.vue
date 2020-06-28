@@ -58,13 +58,13 @@ export default{
         if(res.code == 0){
           this.orderInfo = res.data
         }
-      })
+      }).catch((err)=>{})
     }
   },
 }
 </script>
 <style>
- @import url("../../assets/css/index.scss");
+ @import url("../../assets/css/index.css");
  .orderdetail{
     margin:0.3rem 0.2rem;
     background: #ffffff;

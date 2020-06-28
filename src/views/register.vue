@@ -108,7 +108,7 @@ export default{
               })
             },1000)
           }
-        })
+        }).catch((err)=>{})
       }
     },
     val(){
@@ -134,8 +134,8 @@ export default{
 }
 
 </script>
-<style lang="scss">
-@import url("../assets/css/login.scss");
+<style lang="css">
+@import url("../assets/css/login.css");
 .swiper-container{
   width: 3.96rem;
   height:6.20rem;

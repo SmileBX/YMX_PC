@@ -81,11 +81,13 @@ export default{
   },
   methods: {
     async getOrderList(){
-      const res = await post('user/up_vip',this.query)
-      if(res.code == 0){
-        this.vipdata = res.data
-        this.order_id = res.data.id
-      }
+      try{  
+        const res = await post('user/up_vip',this.query)
+        if(res.code == 0){
+          this.vipdata = res.data
+          this.order_id = res.data.id
+        }
+      }catch(err){}
     },
     //提交订单
     submit(){
@@ -101,13 +103,13 @@ export default{
         if(res.code == 0){
             window.open(res.data,"_blank"); 
         }
-      })
+      }).catch((err)=>{})
     }
   },
 }
 </script>
 <style>
- @import url("../../assets/css/index.scss");
+ @import url("../../assets/css/index.css");
  .submit{
     margin:0.3rem 0.2rem;
     background: #ffffff;

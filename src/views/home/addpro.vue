@@ -142,47 +142,59 @@
           id:this.proid,
           user_token:getToken()
         }
-        const res = await post('shop/goods_detail',query)
-        if(res.code == 0){
-          this.query = {
-            user_token:getToken(),
-            currency_price:res.data.currency_price,//当前价格
-            name:res.data.name,
-            discount:res.data.discount,
-            discount_coud:res.data.discount_coud, //折扣码
-            cover_id:res.data.cover_id,//图片Id
-            amazon_url:res.data.amazon_url,
-            start_time:res.data.start_time,
-            end_time:res.data.end_time,
-            level_id:res.data.level_id,//折扣分类id
-            cate_id:res.data.cate_id,//商品分类id
+        try{
+          const res = await post('shop/goods_detail',query)
+          if(res.code == 0){
+            this.query = {
+              user_token:getToken(),
+              currency_price:res.data.currency_price,//当前价格
+              name:res.data.name,
+              discount:res.data.discount,
+              discount_coud:res.data.discount_coud, //折扣码
+              cover_id:res.data.cover_id,//图片Id
+              amazon_url:res.data.amazon_url,
+              start_time:res.data.start_time,
+              end_time:res.data.end_time,
+              level_id:res.data.level_id,//折扣分类id
+              cate_id:res.data.cate_id,//商品分类id
+            }
+            this.imageUrl = res.data.image
+            this.cateList.map(item=>{
+              if(item.id == res.data.cate_id){
+                this.cate = item.name
+              }
+            })
+            this.levelList.map(item=>{
+              if(item.id == res.data.level_id){
+                this.level = item.us_title
+              }
+            })
           }
-          this.imageUrl = res.data.image
-          this.cateList.map(item=>{
-            if(item.id == res.data.cate_id){
-              this.cate = item.name
-            }
-          })
-          this.levelList.map(item=>{
-            if(item.id == res.data.level_id){
-              this.level = item.us_title
-            }
-          })
+        }catch(err){
+
         }
       },
       async getcateList(){
-        const res = await post('goods/goods_cate_list')
-        if(res.code == 0){
-            this.cateList = res.data
+        try{
+          const res = await post('goods/goods_cate_list')
+          if(res.code == 0){
+              this.cateList = res.data
+          }
+        }catch(err){
+
         }
       },
       async getlevelList(){
-        let query = {
-          user_token:getToken()
-        }
-        const res = await post('goods/goods_level_list',query)
-        if(res.code == 0){
-            this.levelList = res.data
+        try{
+          let query = {
+            user_token:getToken()
+          }
+          const res = await post('goods/goods_level_list',query)
+          if(res.code == 0){
+              this.levelList = res.data
+          }
+        }catch(err){
+
         }
       },
       //点击子菜单筛选
@@ -248,7 +260,7 @@
                 this.$router.push('/index/home?type=1')
               },1000)
             }
-          })
+          }).catch((err)=>{})
         }
       },
       //验证上传信息
@@ -299,7 +311,7 @@
   }
 </script>
 <style>
-   @import url("../../assets/css/index.scss");
+   @import url("../../assets/css/index.css");
    .addpro{
     margin:0.3rem 0.2rem;
     background: #ffffff;
