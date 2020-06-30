@@ -10,6 +10,8 @@
           <div class="vip_right flex flexAlignCenter justifyContentBetween">
             <div>Optional discount</div>
             <div>times</div>
+            <div>Monthly fee</div>
+            <div>Quarter fee</div>
             <div>fee</div>
             <div>is_get</div>
           </div>
@@ -20,7 +22,9 @@
           <div class="vip_right flex flexAlignCenter justifyContentBetween">
             <div><span class="color_red">{{item.discount}}</span> off</div>
             <div><span class="color_red">{{item.times}}</span> </div>
-            <div><span class="color_red">{{item.fee}}</span> USD/Month</div>
+            <div><span class="color_red">{{item.month_fee}}</span> USD/Month</div>
+            <div><span class="color_red">{{item.quarter_fee}}</span> USD/Quarter</div>
+            <div><span class="color_red">{{item.fee}}</span> USD/Year</div>
             <div class="color_red cli_pointer" @click="makeOrder(item)">{{item.is_get==0?'Get':'Use'}}</div>
           </div>
         </div>
@@ -32,6 +36,7 @@
 import indexList from '../../components/indexList.vue'
 import {get,post} from '@/api/axios.js'
 import {getToken} from '@/utils/auth.js'
+import { getStore, setStore, removeStore } from "@/utils/store";
 export default{
   data(){
     return{
@@ -52,6 +57,7 @@ export default{
 			}
 	},
   created () {
+    removeStore('vip_level')
     this.type = this.$route.query.type;
     this.getVipList()
   },
@@ -63,14 +69,12 @@ export default{
         }
       }).catch((err)=>{})
     },
-    //创建订单
+    //展示订单
     makeOrder(item){
       if(item.is_get==0){
+        setStore('vip_level',item)
         this.$router.push({
-          path:'/index/submit',
-          query:{
-            id:item.id
-          }
+          path:'/index/submit'
         })
       }
     }

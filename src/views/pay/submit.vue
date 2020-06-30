@@ -11,27 +11,28 @@
                 <div class="mt5 submit_list pw4">
                     <div class="submit_pay font_bold">
                         <div>Service</div>
+                        <div>Title</div>
                         <div>Price</div>
-                        <div>Quantity</div>
                         <div>Total price</div> 
                     </div>
                     <div class="sub_list mt2 ">
-                        <div class="sub_item">
-                                <div class="submit_pay color_9 font14">
+                        <div class="sub_item" v-for="(item,index) in vipdata">
+                            <div class="submit_pay color_9 font14">
                                   <div class="flex flexAlignCenter justifyContentCenter">
-                                    <img src="../../assets/images/Y.png" alt="" class="vip_icon1">
-                                    <!-- <img src="../../assets/images/m.png" alt="" class="vip_icon2" v-if="index==1">
-                                    <img src="../../assets/images/banner.png" alt="" class="vip_icon3" v-if="index==2">
+                                    <img src="../../assets/images/Y.png" alt="" class="vip_icon1" v-if="index==0">
+                                    <img src="../../assets/images/q.png" alt="" class="vip_icon1" v-if="index==1">
+                                    <img src="../../assets/images/m.png" alt="" class="vip_icon2" v-if="index==2">
+                                    <!-- <img src="../../assets/images/banner.png" alt="" class="vip_icon3" v-if="index==2">
                                     <img src="../../assets/images/banner1.png" alt="" class="vip_icon4" v-if="index==3">
                                     <img src="../../assets/images/tui.png" alt="" class="vip_icon5" v-if="index==4">
                                     <img src="../../assets/images/web.png" alt="" class="vip_icon6" v-if="index==5"> -->
-                                    <span class="ml2">{{vipdata.description}}</span>
+                                    <span class="ml2">{{info.description}}</span>
                                 </div>
-                                <div>{{vipdata.price}} USD/YEAR</div>
-                                <div>{{vipdata.quantity}}</div>
-                                <div>{{vipdata.price}} USD</div> 
+                                <div >{{item.title}}</div>
+                                <div >{{item.fee}} USD/{{index==0?'Monthly':(index==1?'Quarter':'Year')}}</div>
+                                <div>{{item.fee}} USD</div> 
                             </div>
-                            <el-checkbox v-model="checked"></el-checkbox>
+                            <el-checkbox v-model="item.isCheck" @change="change(index)"></el-checkbox>
                         </div>
                     </div>
                 </div>
@@ -40,11 +41,11 @@
                     * If submitting an order means you know and accept <span class="text_underline submit_color">Member Terms of Service</span>
                   </div>
                   <div>
-                    Total price: <span class="submit_color font_bold">${{vipdata.price}}</span>
+                    Total price: <span class="submit_color font_bold">${{total}}</span>
                   </div>
                 </div>
                 <div class="text_right mt2 pw4">
-                  <div class="step1_btn font14" @click="submit">Submit Order</div>
+                  <div class="step1_btn font14 cli_pointer" @click="submit">Submit Order</div>
                 </div>
           </div>
       </div>
@@ -53,39 +54,75 @@
 <script>
 import {get,post} from '@/api/axios.js'
 import {getToken} from '@/utils/auth.js'
+import { getStore, setStore, removeStore } from "@/utils/store";
 export default{
   data(){
     return{
-        checked:true,
-        vipdata:{},
-        order_id:'',
-        query:{
-          id:'',
-          user_token:getToken()
-        }
+        vipdata:[],
+        info:{},
+        total:0,
     }
   },
   created () {
-    this.query.id = this.$route.query.id
-    this.getOrderList()
+    // this.query.id = this.$route.query.id
+    // this.getOrderList()
+    // this.vipdata = getStore('vip_level')
+    this.getData()
   },
   methods: {
-    async getOrderList(){
-      try{
-        const res = await post('user/up_vip',this.query)
-        if(res.code == 0){
-          this.vipdata = res.data
-          this.order_id = res.data.id
+    // async getOrderList(){
+    //   try{
+    //     const res = await post('user/up_vip',this.query)
+    //     if(res.code == 0){
+    //       this.vipdata = res.data
+    //       this.order_id = res.data.id
+    //     }
+    //   }catch(err){}
+    // },
+    getData(){
+      let level = getStore('vip_level')
+      this.info = level
+      // console.log(level,"lllllllll")
+      let data = [
+        {title:level.title,fee:level.month_fee,isCheck:false},
+        {title:level.title,fee:level.quarter_fee,isCheck:false},{title:level.title,fee:level.fee,isCheck:false}
+      ]
+      this.vipdata = data
+    },
+    change(key){
+        for(let i =0;i<this.vipdata.length;i++){
+          if(key == i){
+            this.$set(this.vipdata[i],'isCheck',true)
+            this.total = this.vipdata[i].fee
+          }else{
+            this.$set(this.vipdata[i],'isCheck',false)
+          }
+          
         }
-      }catch(err){}
+        
     },
     //提交订单
     submit(){
-      if(!this.checked){
+      let num = 0;
+      let type = 0//1:一月 2:一季 3:一年
+      for(let i =0;i<this.vipdata.length;i++){
+        if(this.vipdata[i].isCheck){
+          num++;
+          type = i+1
+        }
+      }
+      if(num==0){
         this.$message('请选择订单!')
         return;
       }
-      this.$router.push('/index/pay?id='+this.query.id)
+      this.$router.push({
+        path:'/index/pay',
+        query:{
+          id:this.info.id,
+          type:type
+        }
+      })
+      
       // let query = {
       //   id:this.order_id,
       //   user_token:getToken()

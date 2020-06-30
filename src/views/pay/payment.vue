@@ -29,19 +29,19 @@
                         <div class="color_9 font14">Payment method:</div>
                         <div class="font16 font_bold ml6">
                             <span class="pay_active payment_item">Payment platform</span>
-                            <span class="payment_item">Credit card</span>
+                            <!-- <span class="payment_item">Credit card</span> -->
                         </div>
                     </div>
                     <div class="pay_methods pw4 mt5">
                         <el-radio-group v-model="radio" class="flex">
                             <div class="flex flexAlignCenter card_pay">
-                                <el-radio></el-radio>
+                                <el-radio :label="3"></el-radio>
                                 <div class="pay_logo">
                                   <img src="../../assets/images/pay.png" alt="">
                                 </div>
                             </div>
                             <div class="flex flexAlignCenter card_pay">
-                              <el-radio ></el-radio>
+                              <el-radio :label="6"></el-radio>
                               <div class="pay_logo">
                                 <img src="../../assets/images/pay.png" alt="">
                               </div>
@@ -53,7 +53,7 @@
                   <div class="font14 sub_men_left">
                     * If submitting an order means you know and accept <span class="text_underline color_lignblue">Member Terms of Service</span>
                   </div>
-                  <div class="step1_btn font14" @click="submit">Submit Order</div>
+                  <div class="step1_btn font14 cli_pointer" @click="submit">Submit Order</div>
                 </div>
           </div>
       </div>
@@ -69,6 +69,7 @@ export default{
         order_id:'',
         query:{
           id:'',
+          type:'',
           user_token:getToken()
         },
         checked:true,
@@ -77,6 +78,7 @@ export default{
   },
   created () {
     this.query.id = this.$route.query.id
+    this.query.type = this.$route.query.type
     this.getOrderList()
   },
   methods: {
