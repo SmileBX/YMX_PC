@@ -9,11 +9,11 @@
           <div class="vip_left">title</div>
           <div class="vip_right flex flexAlignCenter justifyContentBetween">
             <div>Optional discount</div>
-            <div>times</div>
+            <div>Times</div>
             <div>Monthly fee</div>
             <div>Quarter fee</div>
             <div>fee</div>
-            <div>is_get</div>
+            <div>Is_get</div>
           </div>
       </div>
       <div class=" font16 vip_list">
@@ -21,7 +21,7 @@
           <div class="vip_left">{{item.title}}</div>
           <div class="vip_right flex flexAlignCenter justifyContentBetween">
             <div><span class="color_red">{{item.discount}}</span> off</div>
-            <div><span class="color_red">{{item.times}}</span> </div>
+            <div><span class="color_red">{{item.times}} Times for free</span> </div>
             <div><span class="color_red">{{item.month_fee}}</span> USD/Month</div>
             <div><span class="color_red">{{item.quarter_fee}}</span> USD/Quarter</div>
             <div><span class="color_red">{{item.fee}}</span> USD/Year</div>

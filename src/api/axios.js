@@ -73,14 +73,16 @@ service.interceptors.response.use(
     response => {
         const data = response.data;
         if (data.code) {
-            //413重新登陆 408需要登陆 409观看次数超，请开通会员，410修改密码失效，手机号或者密码错误 411没有此用户 412参数异常
-            if (data.code === 413) {
+            //2重新登陆 408需要登陆 409观看次数超，请开通会员，410修改密码失效，手机号或者密码错误 411没有此用户 412参数异常
+            if (data.code === 2) {
                 store.dispatch("fedLogout").then(() => {
-                    Message.error("验证失败,请重新登录");
-                    router.push({
-                        path: "/login",
-                        query: { redirect: router.currentRoute.fullPath } // 从哪个页面跳转过来
-                    });
+                    Message.error(data.msg);
+                    setTimeout(()=>{
+                        router.push({
+                            path: "/login",
+                            query: { redirect: router.currentRoute.fullPath } // 从哪个页面跳转过来
+                        });
+                    },1500)
                 });
             }else if(data.code == 408){
                 Message.error("请重新登录后使用！");
