@@ -197,7 +197,7 @@
   width:16%;
   text-align: center;
 }
-//vip单页
+/* //vip单页 */
 
 .vip_head >div{
   font-size:0.16rem;
@@ -261,7 +261,7 @@
   align-items: center;
   justify-content: center;
 }
-//消息
+/* //消息 */
 .notice_list{
   border:1px solid blue;
 }
@@ -290,7 +290,7 @@
 .content_notice{
   margin-left:0.3rem;
 }
-//订单
+/* //订单 */
 .order_head{
   justify-content: space-between;
 }
@@ -325,7 +325,7 @@
   color:#656565;
   padding:0.2rem 0;
 }
-//订单详情
+/* //订单详情 */
 .border{}
 .order_info{
   padding:0 1rem 0 0.6rem;
@@ -349,7 +349,7 @@
   margin-top:1rem;
   justify-content: flex-end;
 }
-//支付流程相关
+/* 支付流程相关 */
 .submit_order{}
 .submit_order{
   margin:0.85rem 1.35rem;
@@ -399,7 +399,7 @@
 .pay_logo{
   width:1.55rem;
   height:0.5rem;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   box-shadow: -0.01rem 0.01rem 0.05rem 0.01rem rgba(0,0,0,0.1);
@@ -437,7 +437,6 @@
   width:80%;
 }
 .com_item{
-  // width:23%;
   background: #ffffff;
   margin-right:0.15rem;
 }
@@ -445,7 +444,6 @@
   margin-right:0;
 }
 .item_head{
-  // padding:0.35rem 0.2rem;
   width:3.50rem;
   height:1.4rem;
   font-size:0.16rem;

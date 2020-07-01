@@ -35,17 +35,20 @@
                     <div class="pay_methods pw4 mt5">
                         <el-radio-group v-model="radio" class="flex">
                             <div class="flex flexAlignCenter card_pay">
-                                <el-radio :label="3"></el-radio>
+                                <el-radio :label="3">
+                                  <div class="pay_logo">
+                                    <img src="../../assets/images/pay.png" alt="">
+                                  </div>
+                                </el-radio>
+                                
+                            </div>
+                            <!-- <div class="flex flexAlignCenter card_pay">
+                              <el-radio :label="6">
                                 <div class="pay_logo">
                                   <img src="../../assets/images/pay.png" alt="">
                                 </div>
-                            </div>
-                            <div class="flex flexAlignCenter card_pay">
-                              <el-radio :label="6"></el-radio>
-                              <div class="pay_logo">
-                                <img src="../../assets/images/pay.png" alt="">
-                              </div>
-                          </div>
+                              </el-radio>
+                          </div> -->
                         </el-radio-group>
                     </div>
                 </div>
