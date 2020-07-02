@@ -14,7 +14,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/login'
+      redirect:'/start'
+    },
+    {
+      path: '/start',
+      name: '启动页',
+      component: () => import(/* webpackChunkName: "about" */ '../views/start.vue')
     },
     {
       path: '/login',

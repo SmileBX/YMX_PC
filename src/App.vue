@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+   
+  }
 }
 </script>
 
@@ -33,5 +36,8 @@ export default {
 }
 .el-pager li:hover{
   color:#544CFB;
+}
+.el-input__inner{
+  margin-top:0!important;
 }
 </style>

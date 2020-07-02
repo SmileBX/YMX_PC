@@ -263,7 +263,7 @@
 }
 /* //消息 */
 .notice_list{
-  border:1px solid blue;
+  /* border:1px solid blue; */
 }
 .img_icon{
   width:0.8rem;height:0.8rem;
