@@ -154,7 +154,7 @@
   @import url("../assets/css/index.css");
   @import url("../assets/css/media.css");
   .el-col{
-    width:100%;
+    width:100%!important;
   }
   .el-submenu__title{
 
@@ -166,7 +166,7 @@
   }
   .el-menu-vertical-demo.el-menu{
     border-right:0;
-    width:100%;
+    width:100%!important;
   }
   .el-menu-item.is-active,.el-menu-item.is-active{
     color:#303F9F
@@ -175,7 +175,7 @@
     width:80%;
   }
   .el-badge__content.is-fixed{
-    top:50%;
+    top:50%!important;
     right:0;
     transform: translateY(-50%);
   }
