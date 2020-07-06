@@ -5,10 +5,11 @@
 </template>
 
 <script>
+import {getToken} from './utils/auth.js'
 export default {
   name: 'App',
   created () {
-   
+   console.log(getToken(),"start66666________________________________")
   }
 }
 </script>

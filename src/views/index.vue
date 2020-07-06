@@ -46,9 +46,9 @@
                 </el-menu-item>
                 <el-menu-item index="5">
                   <i class="el-icon-s-opportunity"></i>
-                  <el-badge :value="newsCount" :max="99" class="item" v-if="newsCount>0">
+                  <el-badge :value="newsCount" :max="99" class="item" v-if="newsCount>0">Notification
                   </el-badge>
-                  <span slot="title">Notification</span>
+                  <span v-else>Notification</span>
                 </el-menu-item>
               </el-menu>
             </el-col>

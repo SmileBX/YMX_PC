@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+// import HelloWorld from '@/components/HelloWorld'
 
 //解决在使用ElementUI中的导航时，默认情况下如果重复点击某选项，会报错。
 const originalPush = Router.prototype.push
@@ -14,7 +14,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/start'
+      redirect:'/index'
     },
     {
       path: '/start',
@@ -45,7 +45,8 @@ export default new Router({
           name: 'home',
           component: () => import('../views/home/home.vue'),
           meta: {
-            title: '首页'
+            title: '首页',
+            requireAuth:true // 添加该字段，表示进入这个路由是需要登录的
           }
         },
         {

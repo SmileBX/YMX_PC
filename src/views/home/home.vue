@@ -91,7 +91,7 @@
                       <div class="text_flow flex1">{{item.name}}</div> 
                     </div>
                     <div class="flex justifyContentBetween  box_f6">
-                      <div class="flex flexAlignCenter justifyContentCenter color_9">{{item.strat_time}}</div>
+                      <div class="flex flexAlignCenter justifyContentCenter color_9">{{item.start_time}}</div>
                       <div class="flex flexAlignCenter justifyContentCenter color_9">{{item.end_time}}</div>
                       <div>
                         <div>${{item.price}}</div>

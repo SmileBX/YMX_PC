@@ -1,10 +1,11 @@
 import { getStore, setStore, removeStore } from "./store";
 
-const adminId = "ADMIN-ID";
-const adminToken = "ADMIN-TOKEN";
+const adminId = "RECEIVE_ADMIN_ID";
+const adminToken = "RECEIVE_ADMIN_TOKEN";
 
 // 获取token
 export function getToken() {
+    console.log("getkoen1111111111111")
     return getStore(adminToken);
 }
 

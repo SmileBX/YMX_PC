@@ -15,8 +15,10 @@ export const setStore = (name, content, expireDay) => {
  * 获取localStorage
  */
 export const getStore = name => {
+    // console.log(name,"name22222222222222")
     if (!name) return;
     let content = Cookies.get(name);
+    // console.log(content,"333333333333333333333")
     try {
         content = JSON.parse(content);
         return content;
